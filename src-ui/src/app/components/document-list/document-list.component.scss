@@ -2,6 +2,18 @@
   margin-bottom: 0 !important;
 }
 
+.preview-sticky {
+  height: calc(100vh - 160px);
+  position: sticky;
+}
+
+.pdf-viewer-container {
+  pdf-viewer {
+    width: 100%;
+    height: 100%;
+  }
+}
+
 tr {
   user-select: none;
 }

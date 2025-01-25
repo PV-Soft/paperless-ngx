@@ -94,6 +94,7 @@ export class DocumentListViewService {
   isReloading: boolean = false
   initialized: boolean = false
   error: string = null
+  previewDocumentId: number | null = null
 
   rangeSelectionAnchorIndex: number
   lastRangeSelectionToIndex: number
@@ -418,6 +419,9 @@ export class DocumentListViewService {
   }
 
   set displayMode(mode: DisplayMode) {
+    if (mode !== 'preview') {
+      this.previewDocumentId = null
+    }
     this.activeListViewState.displayMode = mode
     this.saveDocumentListView()
   }

@@ -40,6 +40,10 @@
     <label for="displayModeLarge" class="btn btn-outline-primary btn-sm">
       <i-bs name="hdd-stack"></i-bs>
     </label>
+    <input type="radio" class="btn-check" [(ngModel)]="list.displayMode" value="preview" id="displayModePreview" name="displayModePreview">
+    <label for="displayModePreview" class="btn btn-outline-primary btn-sm">
+      <i-bs name="hdd-stack"></i-bs>
+    </label>
   </div>
 
   <div ngbDropdown class="btn-group flex-fill">
@@ -392,6 +396,42 @@
             (clickDocumentType)="clickDocumentType($event)">
           </pngx-document-card-small>
         }
+      </div>
+    }
+    @if (list.displayMode === DisplayMode.PREVIEW) {
+      <div class="d-flex gap-4">
+        <div class="d-flex flex-column">
+          @for (d of list.documents; track d.id) {
+            <pngx-document-card-tiny
+              (clickPreview)="showPreview(d)"
+              [selected]="list.isSelected(d)"
+              (toggleSelected)="toggleSelected(d, $event)"
+              (dblClickDocument)="openDocumentDetail(d)"
+              [document]="d"
+              [displayFields]="activeDisplayFields"
+              (clickTag)="clickTag($event)"
+              (clickCorrespondent)="clickCorrespondent($event)"
+              (clickDocumentType)="clickDocumentType($event)"
+              (clickStoragePath)="clickStoragePath($event)"
+              (clickMoreLike)="clickMoreLike(d.id)">
+            </pngx-document-card-tiny>
+          }
+        </div>
+        <div class="w-100 preview-sticky pdf-viewer-container">
+          @if (list.previewDocumentId) {
+            <pdf-viewer
+              [src]="previewURL"
+              [original-size]="false"
+              [show-borders]="false"
+              [show-all]="true"
+              (error)="onError($event)">
+            </pdf-viewer>
+          } @else {
+            <div>
+              select document for preview
+            </div>
+          }
+        </div>
       </div>
     }
     @if (list.documents?.length > 15) {

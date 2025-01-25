@@ -6,6 +6,7 @@ export enum DisplayMode {
   TABLE = 'table',
   SMALL_CARDS = 'smallCards',
   LARGE_CARDS = 'largeCards',
+  PREVIEW = 'preview',
 }
 
 export enum DisplayField {

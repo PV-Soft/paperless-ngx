@@ -65,6 +65,9 @@ import { DocumentCardLargeComponent } from './document-card-large/document-card-
 import { DocumentCardSmallComponent } from './document-card-small/document-card-small.component'
 import { FilterEditorComponent } from './filter-editor/filter-editor.component'
 import { SaveViewConfigDialogComponent } from './save-view-config-dialog/save-view-config-dialog.component'
+import {PdfViewerModule} from "ng2-pdf-viewer";
+import {DocumentService} from "../../services/rest/document.service";
+import {DocumentCardTinyComponent} from "./document-card-tiny/document-card-tiny.component";
 
 @Component({
   selector: 'pngx-document-list',
@@ -97,6 +100,8 @@ import { SaveViewConfigDialogComponent } from './save-view-config-dialog/save-vi
     NgClass,
     RouterModule,
     TourNgBootstrapModule,
+    PdfViewerModule,
+    DocumentCardTinyComponent,
   ],
 })
 export class DocumentListComponent
@@ -117,7 +122,8 @@ export class DocumentListComponent
     public openDocumentsService: OpenDocumentsService,
     public settingsService: SettingsService,
     private hotKeyService: HotKeyService,
-    public permissionService: PermissionsService
+    public permissionService: PermissionsService,
+    private documentService: DocumentService,
   ) {
     super()
   }
@@ -490,5 +496,26 @@ export class DocumentListComponent
 
   resetFilters() {
     this.filterEditor.resetSelected()
+  }
+
+
+  // protected previewDocument: Document | null = null
+
+  get previewURL() {
+    return this.documentService.getPreviewUrl(this.list.previewDocumentId)
+  }
+
+  showPreview(d: Document) {
+    console.log(d.title);
+    this.list.previewDocumentId = d.id
+  }
+
+  onError(event: any) {
+    // if (event.name == 'PasswordException') {
+    //   this.requiresPassword = true
+    // } else {
+    //   this.error = true
+    // }
+    console.log(event);
   }
 }
