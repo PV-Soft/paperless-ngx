@@ -68,6 +68,7 @@ import { SaveViewConfigDialogComponent } from './save-view-config-dialog/save-vi
 import {PdfViewerModule} from "ng2-pdf-viewer";
 import {DocumentService} from "../../services/rest/document.service";
 import {DocumentCardTinyComponent} from "./document-card-tiny/document-card-tiny.component";
+import {SafeUrlPipe} from "../../pipes/safeurl.pipe";
 
 @Component({
   selector: 'pngx-document-list',
@@ -102,6 +103,7 @@ import {DocumentCardTinyComponent} from "./document-card-tiny/document-card-tiny
     TourNgBootstrapModule,
     PdfViewerModule,
     DocumentCardTinyComponent,
+    SafeUrlPipe,
   ],
 })
 export class DocumentListComponent

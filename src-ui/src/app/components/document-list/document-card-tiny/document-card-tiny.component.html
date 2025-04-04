@@ -1,14 +1,12 @@
-<div class="mb-3 shadow-sm bg-light d-flex">
-  <div class="position-relative">
-    <img [src]="getThumbUrl()" class=" doc-imgg border-end rounded-start">
-    <div class="border-end border-bottom bg-light document-card-check">
-      <div class="form-check">
+<div class="mb-3 shadow-sm bg-light d-flex border rounded " (dblclick)="dblClickDocument.emit()" [class.selected]="selected">
+  <div class="left-part position-relative">
+      <img [src]="getThumbUrl()" class=" preview-image border-end rounded-start">
+      <div class="form-check bg-light border-end border-bottom rounded-end">
         <input type="checkbox" class="form-check-input" id="smallCardCheck{{document.id}}" [checked]="selected" (click)="this.toggleSelected.emit($event)">
         <label class="form-check-label" for="smallCardCheck{{document.id}}"></label>
       </div>
-    </div>
   </div>
-  <div class="right-part" (click)="clickPreview.emit()">
+  <div class="right-part d-flex flex-column h-full" (click)="clickPreview.emit()">
     <p class="document-title">
       @if (displayFields.includes(DisplayField.TITLE)) {
         {{ document.title | documentTitle }}
@@ -20,6 +18,22 @@
           {{(document.correspondent$ | async)?.name}}
       }
     </p>
+    <div class="flex-grow-1 d-flex flex-column-reverse">
+      <div class="d-flex align-items-center justify-content-between ">
+        <a routerLink="/documents/{{document.id}}" class="btn btn-sm btn-outline-secondary" *pngxIfPermissions="{ action: PermissionAction.Change, type: PermissionType.Document }">
+          <i-bs name="file-earmark-richtext"></i-bs>
+        </a>
+        @if (displayFields.includes(DisplayField.CREATED)) {
+          <div class="text-dark ">
+            <i-bs width=".9em" height=".9em" class="me-2 text-muted" name="calendar-event"></i-bs><small>{{document.created_date | customDate:'mediumDate'}}</small>
+          </div>
+        }
+      </div>
+
+
+
+
+    </div>
   </div>
 
 </div>

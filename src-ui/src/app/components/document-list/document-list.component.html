@@ -408,16 +408,11 @@
               (toggleSelected)="toggleSelected(d, $event)"
               (dblClickDocument)="openDocumentDetail(d)"
               [document]="d"
-              [displayFields]="activeDisplayFields"
-              (clickTag)="clickTag($event)"
-              (clickCorrespondent)="clickCorrespondent($event)"
-              (clickDocumentType)="clickDocumentType($event)"
-              (clickStoragePath)="clickStoragePath($event)"
-              (clickMoreLike)="clickMoreLike(d.id)">
+              [displayFields]="activeDisplayFields">
             </pngx-document-card-tiny>
           }
         </div>
-        <div class="w-100 preview-sticky pdf-viewer-container">
+        <div class="w-100 preview-sticky pdf-viewer-container border d-flex align-items-center justify-content-center">
           @if (list.previewDocumentId) {
             <pdf-viewer
               [src]="previewURL"
@@ -428,7 +423,7 @@
             </pdf-viewer>
           } @else {
             <div>
-              select document for preview
+              <i-bs name="file-earmark-richtext"></i-bs>
             </div>
           }
         </div>
